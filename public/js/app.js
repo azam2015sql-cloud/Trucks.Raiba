@@ -1,14 +1,11 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     const socket = io();
     const notificationSound = document.getElementById('notification-sound');
     
-    // جلب الوحدات وعرضها
     fetch('/api/units')
         .then(res => res.json())
         .then(units => displayUnits(units));
     
-    // الاستماع لتحديثات الحركات
     socket.on('new_movement', data => {
         updateUnitDisplay(data.unit);
         playNotification(data.notification);
@@ -39,12 +36,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function playNotification(notification) {
         notificationSound.src = `/sounds/${notification.sound_file}`;
         notificationSound.play();
-        
-        // عرض تنبيه مرئي
         showToast(notification.message);
     }
     
     function showToast(message) {
-        // تنفيذ عرض التنبيه
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
     }
 });
