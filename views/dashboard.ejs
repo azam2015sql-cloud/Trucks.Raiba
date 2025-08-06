@@ -1,1 +1,29 @@
 
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <title>نظام إدارة الورشة</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>لوحة متابعة الورشة</h1>
+        
+        <div class="workshop-areas">
+            <% areas.forEach(area => { %>
+                <div class="area" id="<%= area.name %>">
+                    <h3><%= area.display_name %></h3>
+                    <div class="units-list" id="<%= area.name %>-units">
+                        <!-- سيتم ملء الوحدات عبر JavaScript -->
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+        
+        <audio id="notification-sound" preload="auto"></audio>
+    </div>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>
